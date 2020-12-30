@@ -1,34 +1,62 @@
 // API KEY = 4e835435a3ded0ecd3bef3da14dbf091
 
-let button = document.querySelector("#button");
-let titleArea = document.querySelector('#title-area');
-let descriptionArea = document.querySelector('#des-area');
-
-  async function getImages(){
-     try {
-        let response = await axios
-        .get( 'https://api.themoviedb.org/3/movie/now_playing?api_key=4e835435a3ded0ecd3bef3da14dbf091&language=en-US&page=1')
-    let movies = response.data.results;
-        movies.forEach( (movie)=>{
-            if(response){
-               movie = movies[Math.floor(Math.random() * movies.length)]
-               titleArea.textContent = movie.original_title;
-               descriptionArea.textContent = movie.overview;
-               
+(function () {
+  let userInput = document.querySelector("#user-input");
+  let searchResults = document.querySelector("#search-results");
 
 
-            }
-        
-        })
+  async function addMovie(id){
+    let movieDetails = await axios.get(
+      `https://api.themoviedb.org/3/movie/${id}?api_key=4e835435a3ded0ecd3bef3da14dbf091&language=en-US`
+    )
 
-    
-    
-     console.log(response);
-         
-     } catch (error) {
-         console.error(error);
-     }
+    console.log(movieDetails.data);
+    console.log(movieDetails.data.imdb_id);
+
+    let curMovieInfo = document.createElement("div");
+    curMovieInfo.setAttribute("class", "movie-info");
+    searchResults.appendChild(curMovieInfo);
+
+    let curAnchor = document.createElement("a");
+    curAnchor.setAttribute("href", `https://imdb.com/title/${movieDetails.data.imdb_id}`);
+    curAnchor.setAttribute("target", "_blank");
+    curAnchor.setAttribute("class", "imdb-link")
+    curMovieInfo.appendChild(curAnchor);
+
+    let curTitle = document.createElement("div");
+    curTitle.setAttribute("class", "movie-title");
+    curTitle.textContent = movieDetails.data.original_title;
+
+    curAnchor.appendChild(curTitle);
+
+    let curImage = document.createElement("img");
+    curImage.setAttribute("class", "movie-poster");
+    curImage.setAttribute(
+      "src",
+      `https://image.tmdb.org/t/p/w500${movieDetails.data.poster_path}`
+    );
+
+    curAnchor.appendChild(curImage);
   }
+  //this function calls the API to return search results based on user input
 
-button.addEventListener("click", getImages);
+  userInput.addEventListener("input", () => {
+    searchResults.textContent = "";
+    async function searchMovies() {
+      try {
+        let searchResponse = await axios.get(
+          `https://api.themoviedb.org/3/search/movie?api_key=4e835435a3ded0ecd3bef3da14dbf091&language=en-US&query=${userInput.value}&page=1&include_adult=false`
+        );
+        let queries = searchResponse.data.results;
+        queries.forEach((query) => {
+          addMovie(query.id)
+        });
 
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    searchMovies();
+  });
+})();
