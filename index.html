@@ -1,27 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
-    <script src = "js/ajax.js" defer></script>
-    <script src = "JS/main.js" defer></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+      defer
+    ></script>
+    <script src="js/ajax.js" defer></script>
+    <script src="JS/main.js" defer></script>
     <title>Movie Discovery App</title>
-</head>
-<body>
-    <div id = "header">
-        <h1>Movie Discovery</h1>
+  </head>
+  <body>
+    <div id="header">
+      <h1>Movie Discovery</h1>
     </div>
-    <div id = 'app-description'>
-        <p>The middle-man app for IMDB that you never asked for, and don't really need! Search for your favorite movie, or enter a keyword and click a movie poster below to be taken straight to the IMBD page for that movie. Or you can just visit IMBD and search there. But if you love extra steps, this app is for you! Go ahead, try it. Or don't, that's okay too.</p>
+    <div id="app-description">
+      <p>
+        The middle-man app for IMDB that you never asked for, and don't really
+        need! Search for your favorite movie, or enter a keyword and click a
+        movie poster below to be taken straight to the IMBD page for that movie.
+        Or you can click the button below, and get a movie now playing in
+        theatres. Or you can just visit IMBD and search there. But if you love
+        extra steps, this app is for you! Go ahead, try it. Or don't, that's
+        okay too.
+      </p>
     </div>
-    <div id = 'search-engine'>
-        <h2>Start typing to display movies</h2>
-        <input type="text" id = "user-input">
+    <div id="search-engine">
+      <h2>Start typing to display movies</h2>
+      <input type="text" id="user-input" />
     </div>
-    <div id = 'search-results'></div>
-
-
-</body>
+    <div id="search-results"></div>
+    <div id="now-playing-area">
+      <button id="now-playing-button">Now Playing!</button>
+    </div>
+    <div id="now-playing-title"></div>
+    <div id="now-playing-description"></div>
+  </body>
 </html>

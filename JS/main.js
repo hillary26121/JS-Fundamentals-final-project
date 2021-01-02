@@ -1,10 +1,11 @@
-// API KEY = 4e835435a3ded0ecd3bef3da14dbf091
-
 (function () {
   let userInput = document.querySelector("#user-input");
   let searchResults = document.querySelector("#search-results");
-
-  //This function pulls the 'id' of each movie for more info, posters, and IMDB links and creates the HTML elements and their classes/attributes and appends them to the page.
+  let nowPlayingButton = document.querySelector("#now-playing-button");
+  let nowPlayingTitle = document.querySelector("#now-playing-title");
+  let nowPlayingDescription = document.querySelector(
+    "#now-playing-description"
+  );
 
   const appendData = (movieDetails) => {
     let curMovieInfo = document.createElement("div");
@@ -40,8 +41,6 @@
     curAnchor.appendChild(curImage);
   };
 
-  //this function calls the API to return search results based on user input
-
   userInput.addEventListener("input", async () => {
     searchResults.textContent = "";
 
@@ -50,6 +49,16 @@
     queries.forEach(async (query) => {
       let movieDetails = await addMovie(query.id);
       appendData(movieDetails);
+    });
+  });
+
+  nowPlayingButton.addEventListener("click", async () => {
+    let chosenMovies = await nowPlaying();
+    chosenMovies.forEach((movie) => {
+      movie = chosenMovies[Math.floor(Math.random() * chosenMovies.length)];
+      console.log(movie);
+      nowPlayingTitle.textContent = movie.original_title;
+      nowPlayingDescription.textContent = movie.overview;
     });
   });
 })();
