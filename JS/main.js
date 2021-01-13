@@ -34,19 +34,18 @@
         `https://image.tmdb.org/t/p/w500${movieDetails.data.poster_path}`
       );
     } else {
-      curImage.setAttribute("src", "https://via.placeholder.com/420x630.png");
+      curImage.setAttribute("src", "https://vcunited.club/wp-content/uploads/2020/01/No-image-available-2.jpg");
       curImage.setAttribute("class", "movie-poster");
+      curImage.setAttribute("class", "no-image")
     }
 
     curAnchor.appendChild(curImage);
   };
 
   userInput.addEventListener("input", async () => {
-    searchResults.textContent = "";
-
     let queries = await searchMovies(userInput);
-    console.log(queries);
     queries.forEach(async (query) => {
+      searchResults.textContent = null;
       let movieDetails = await addMovie(query.id);
       appendData(movieDetails);
     });
@@ -54,11 +53,10 @@
 
   nowPlayingButton.addEventListener("click", async () => {
     let chosenMovies = await nowPlaying();
-    chosenMovies.forEach((movie) => {
       movie = chosenMovies[Math.floor(Math.random() * chosenMovies.length)];
-      console.log(movie);
       nowPlayingTitle.textContent = movie.original_title;
       nowPlayingDescription.textContent = movie.overview;
-    });
+      
   });
 })();
+// https://via.placeholder.com/420x630.png

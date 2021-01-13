@@ -15,6 +15,7 @@
   }
 
   async function searchMovies(userInput) {
+  if(userInput.value){
     try {
       let searchResponse = await axios.get(
         `https://api.themoviedb.org/3/search/movie?api_key=4e835435a3ded0ecd3bef3da14dbf091&language=en-US&query=${userInput.value}&page=1&include_adult=false`
@@ -27,6 +28,7 @@
       console.error(error);
       return error;
     }
+  }
   }
 
   async function nowPlaying() {
