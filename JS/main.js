@@ -59,4 +59,3 @@
       
   });
 })();
-// https://via.placeholder.com/420x630.png
